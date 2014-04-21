@@ -1,5 +1,5 @@
 //
-//  TWBFacebookViewController.h
+//  SBFacebookViewController.h
 //  SocialFrameworkRef
 //
 //  Created by Stuart Breckenridge on 10/10/2013.
@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 @import Social;
+#import "SBSocial.h"
 
-@interface TWBFacebookViewController : UIViewController
+@interface SBFacebookViewController : UIViewController <SBSocialNotifications>
 
 @end

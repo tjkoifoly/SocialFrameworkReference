@@ -1,19 +1,19 @@
 //
-//  TWBFlickrViewController.m
+//  SBFlickrViewController.m
 //  SocialFrameworkRef
 //
 //  Created by Stuart Breckenridge on 15/10/2013.
 //  Copyright (c) 2013 Stuart Breckenridge. All rights reserved.
 //
 
-#import "TWBFlickrViewController.h"
+#import "SBFlickrViewController.h"
 @import Social;
 
-@interface TWBFlickrViewController ()
+@interface SBFlickrViewController ()
 
 @end
 
-@implementation TWBFlickrViewController
+@implementation SBFlickrViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

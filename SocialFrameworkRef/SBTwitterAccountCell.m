@@ -1,14 +1,14 @@
 //
-//  TWBTwitterAccountCell.m
+//  SBTwitterAccountCell.m
 //  SocialFrameworkRef
 //
 //  Created by Stuart Breckenridge on 13/10/2013.
 //  Copyright (c) 2013 Stuart Breckenridge. All rights reserved.
 //
 
-#import "TWBTwitterAccountCell.h"
+#import "SBTwitterAccountCell.h"
 
-@implementation TWBTwitterAccountCell
+@implementation SBTwitterAccountCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {

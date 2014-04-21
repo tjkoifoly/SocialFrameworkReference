@@ -1,5 +1,5 @@
 //
-//  TWBFlickrViewController.h
+//  SBTwitterTimelineViewController.h
 //  SocialFrameworkRef
 //
 //  Created by Stuart Breckenridge on 15/10/2013.
@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TWBFlickrViewController : UIViewController
-
-
+@interface SBTwitterTimelineViewController : UITableViewController <NSURLSessionDownloadDelegate>
 
 @end

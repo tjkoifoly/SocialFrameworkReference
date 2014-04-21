@@ -1,5 +1,5 @@
 //
-//  TWBTweetCell.h
+//  SBTweetCell.h
 //  SocialFrameworkRef
 //
 //  Created by Stuart Breckenridge on 15/10/2013.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TWBTweetCell : UITableViewCell
+@interface SBTweetCell : UITableViewCell
 
 /**
  A UITextView used for the tweet string.

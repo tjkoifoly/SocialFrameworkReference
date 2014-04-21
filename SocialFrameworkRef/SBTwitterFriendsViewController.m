@@ -1,28 +1,28 @@
 //
-//  TWBTwitterFriendsViewController.m
+//  SBTwitterFriendsViewController.m
 //  SocialFrameworkRef
 //
 //  Created by Stuart Breckenridge on 14/10/2013.
 //  Copyright (c) 2013 Stuart Breckenridge. All rights reserved.
 //
 
-#import "TWBTwitterFriendsViewController.h"
-#import "TWBFriendsCell.h"
-#import "TWBSocialHelper.h"
+#import "SBTwitterFriendsViewController.h"
+#import "SBFriendsCell.h"
+#import "SBAppDelegate.h"
 #import "MBProgressHUD.h"
 
 
-@interface TWBTwitterFriendsViewController ()
+@interface SBTwitterFriendsViewController ()
 
 @property BOOL downloadComplete;
 @property int downloadCount;
-@property (nonatomic) NSMutableArray  *downloadedImages;
-@property (nonatomic) TWBSocialHelper *localInstance;
+@property (nonatomic, strong) NSMutableArray  *downloadedImages;
+@property (nonatomic, weak) SBAppDelegate *appDelegate;
 @property (nonatomic) MBProgressHUD   *theHud;
 
 @end
 
-@implementation TWBTwitterFriendsViewController
+@implementation SBTwitterFriendsViewController
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -53,7 +53,10 @@
  */
 -(void)downloadData
 {
-    _localInstance               = [TWBSocialHelper sharedHelper];
+    if (!self.appDelegate) {
+        self.appDelegate = [[UIApplication sharedApplication] delegate];
+    }
+
     [self showHud];
 
     NSURL *twitterFriendsURL     = [NSURL URLWithString:@"https://api.twitter.com/1.1/friends/ids.json"];
@@ -66,8 +69,7 @@
                                                                 URL:twitterFriendsURL
                                                          parameters:requestParams];
 
-    [getFriendsRequest setAccount:_localInstance.twitterAccount];
-    
+    [getFriendsRequest setAccount:self.appDelegate.socialInstance.twitterAccount];
     
     [getFriendsRequest performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
         
@@ -96,7 +98,7 @@
                                                                                URL:detailedFriendsURL
                                                                         parameters:friendsParams];
             
-            [getFriendsDetailsRequest setAccount:_localInstance.twitterAccount];
+            [getFriendsDetailsRequest setAccount:self.appDelegate.socialInstance.twitterAccount];
             
             [getFriendsDetailsRequest performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
                 //NSLog(@"HTTP Response Code: %i", [urlResponse statusCode]);
@@ -179,10 +181,10 @@
     return [_realLifeNames count];
 }
 
-- (TWBFriendsCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (SBFriendsCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
-    TWBFriendsCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    SBFriendsCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
 
     cell.userName.text = [_twitterUserNames objectAtIndex:indexPath.row];
     cell.fullName.text = [_realLifeNames objectAtIndex:indexPath.row];

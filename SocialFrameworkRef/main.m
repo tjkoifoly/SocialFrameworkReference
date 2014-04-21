@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-#import "TWBAppDelegate.h"
+#import "SBAppDelegate.h"
 
 int main(int argc, char * argv[])
 {
     @autoreleasepool {
-        return UIApplicationMain(argc, argv, nil, NSStringFromClass([TWBAppDelegate class]));
+        return UIApplicationMain(argc, argv, nil, NSStringFromClass([SBAppDelegate class]));
     }
 }

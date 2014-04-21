@@ -1,5 +1,5 @@
 //
-//  TWBTwitterAccountCell.h
+//  SBTwitterAccountCell.h
 //  SocialFrameworkRef
 //
 //  Created by Stuart Breckenridge on 13/10/2013.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TWBTwitterAccountCell : UITableViewCell
+@interface SBTwitterAccountCell : UITableViewCell
 
 @property (nonatomic, weak) IBOutlet UIImageView *currentlySelected;
 @property (nonatomic, weak) IBOutlet UILabel     *fullName;

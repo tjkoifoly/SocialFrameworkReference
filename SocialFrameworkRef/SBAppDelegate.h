@@ -1,5 +1,5 @@
 //
-//  TWBAppDelegate.h
+//  SBAppDelegate.h
 //  SocialFrameworkRef
 //
 //  Created by Stuart Breckenridge on 10/10/2013.
@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SBSocial.h"
 
-@interface TWBAppDelegate : UIResponder <UIApplicationDelegate>
+@interface SBAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+@property (strong, nonatomic) SBSocial *socialInstance;
 
 @end

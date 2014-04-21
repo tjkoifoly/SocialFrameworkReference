@@ -1,5 +1,5 @@
 //
-//  TWBTwitterFriendsViewController.h
+//  SBTwitterFriendsViewController.h
 //  SocialFrameworkRef
 //
 //  Created by Stuart Breckenridge on 14/10/2013.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TWBTwitterFriendsViewController : UITableViewController <UIActionSheetDelegate, NSURLSessionDownloadDelegate>
+@interface SBTwitterFriendsViewController : UITableViewController <UIActionSheetDelegate, NSURLSessionDownloadDelegate>
 
 
 @property (nonatomic) NSMutableArray *profileImages;

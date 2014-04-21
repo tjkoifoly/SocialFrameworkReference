@@ -1,23 +1,24 @@
 //
-//  TWBTwitterTimelineViewController.m
+//  SBTwitterTimelineViewController.m
 //  SocialFrameworkRef
 //
 //  Created by Stuart Breckenridge on 15/10/2013.
 //  Copyright (c) 2013 Stuart Breckenridge. All rights reserved.
 //
 
-#import "TWBTwitterTimelineViewController.h"
-#import "TWBTweetObject.h"
-#import "TWBTweetCell.h"
-#import "TWBSocialHelper.h"
+#import "SBTwitterTimelineViewController.h"
+#import "SBTweetObject.h"
+#import "SBTweetCell.h"
+#import "SBAppDelegate.h"
 #import "NSString+HTML.h"
 #import "MBProgressHUD.h"
 @import Social;
 
-@interface TWBTwitterTimelineViewController ()
+
+@interface SBTwitterTimelineViewController ()
 
 /**
- arrayOfTweets contains all downloaded tweets that are each stored in a TWBTweetObject
+ arrayOfTweets contains all downloaded tweets that are each stored in a SBTweetObject
  */
 @property (nonatomic) NSMutableArray  *arrayOfTweets;
 
@@ -26,12 +27,12 @@
  */
 @property int downloadCount;
 
-@property (nonatomic) TWBSocialHelper *localInstance;
-@property (nonatomic) MBProgressHUD   *theHud;
+@property (nonatomic, strong) MBProgressHUD   *theHud;
+@property (nonatomic, weak) SBAppDelegate *appDelegate;
 
 @end
 
-@implementation TWBTwitterTimelineViewController
+@implementation SBTwitterTimelineViewController
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -45,7 +46,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    _localInstance = [TWBSocialHelper sharedHelper];
+    
+    if (!self.appDelegate) {
+        self.appDelegate = [[UIApplication sharedApplication] delegate];
+    }
+    
     _downloadCount = 0;
     [self downloadTimeline];
 }
@@ -74,14 +79,14 @@
     return [_arrayOfTweets count];
 }
 
-- (TWBTweetCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (SBTweetCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier  = @"Cell";
-    TWBTweetCell *cell               = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    SBTweetCell *cell               = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
 
     cell.theTweet.text               = nil;
 
-    TWBTweetObject *theTweet         = [_arrayOfTweets objectAtIndex:indexPath.row];
+    SBTweetObject *theTweet         = [_arrayOfTweets objectAtIndex:indexPath.row];
 
     cell.theTweet.text               = theTweet.tweetString;
     cell.theAuthorFullName.text      = theTweet.tweetRealName;
@@ -127,7 +132,7 @@
                                                        parameters:params];
 
     // Set the account for the request
-    [getUserTimeline setAccount:_localInstance.twitterAccount];
+    [getUserTimeline setAccount:self.appDelegate.socialInstance.twitterAccount];
     
     
     // Perform the request
@@ -158,7 +163,7 @@
                 NSString *profileImage      = [user objectForKey:@"profile_image_url"];
                 NSString *highResImage      = [profileImage stringByReplacingOccurrencesOfString:@"normal" withString:@"bigger"];
 
-                TWBTweetObject *tweetObject = [[TWBTweetObject alloc] init];
+                SBTweetObject *tweetObject = [[SBTweetObject alloc] init];
                 tweetObject.tweetString     = decodedTweet;
                 tweetObject.tweetUserName   = screenName;
                 tweetObject.tweetRealName   = name;
@@ -191,7 +196,7 @@
 {
     if (_downloadCount < [_arrayOfTweets count])
     {
-        TWBTweetObject *t                      = [_arrayOfTweets objectAtIndex:_downloadCount];
+        SBTweetObject *t                      = [_arrayOfTweets objectAtIndex:_downloadCount];
         NSOperationQueue *downloadQueue        = [NSOperationQueue new];
         NSURLSession *downloadSession          = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:self delegateQueue:downloadQueue];
 
@@ -226,7 +231,7 @@ didFinishDownloadingToURL:(NSURL *)location
     [session invalidateAndCancel];
     NSData *imageData      = [NSData dataWithContentsOfURL:location];
     UIImage *imageFromData = [UIImage imageWithData:imageData];
-    TWBTweetObject *obj    = [_arrayOfTweets objectAtIndex:_downloadCount];
+    SBTweetObject *obj    = [_arrayOfTweets objectAtIndex:_downloadCount];
     obj.profileImage       = imageFromData;
     obj                    = nil;
 

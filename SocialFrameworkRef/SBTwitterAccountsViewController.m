@@ -1,25 +1,23 @@
 //
-//  TWBTwitterAccountsViewController.m
+//  SBTwitterAccountsViewController.m
 //  SocialFrameworkRef
 //
 //  Created by Stuart Breckenridge on 13/10/2013.
 //  Copyright (c) 2013 Stuart Breckenridge. All rights reserved.
 //
 
-#import "TWBTwitterAccountsViewController.h"
-#import "TWBSocialHelper.h"
-#import "TWBTwitterAccountCell.h"
+#import "SBTwitterAccountsViewController.h"
+#import "SBAppDelegate.h"
+#import "SBTwitterAccountCell.h"
 @import Accounts;
 
-#define kTwitterLookUpURL @"https://api.twitter.com/1.1/users/lookup.json"
+@interface SBTwitterAccountsViewController ()
 
-@interface TWBTwitterAccountsViewController ()
-
-@property (nonatomic, strong) TWBSocialHelper *localInstance;
+@property (nonatomic, weak) SBAppDelegate *appDelegate;
 
 @end
 
-@implementation TWBTwitterAccountsViewController
+@implementation SBTwitterAccountsViewController
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -34,12 +32,15 @@
 {
     [super viewDidLoad];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
+    if (!self.appDelegate) {
+        self.appDelegate = [[UIApplication sharedApplication] delegate];
+    }
     
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    _localInstance = [TWBSocialHelper sharedHelper];
+    [self.appDelegate.socialInstance requestAccessToTwitterAccounts:^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
+        });
+    }];
 }
 
 - (IBAction)navigateBack:(id)sender {
@@ -67,34 +68,33 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return [[_localInstance twitterAccounts] count];
+    return [[self.appDelegate.socialInstance twitterAccounts] count];
 }
 
-- (TWBTwitterAccountCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (SBTwitterAccountCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
-    TWBTwitterAccountCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    SBTwitterAccountCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     cell.screenName.text = nil;
     cell.fullName.text = nil;
     cell.currentlySelected.image = nil;
     
-    ACAccount *theAccount = [_localInstance.twitterAccounts objectAtIndex:indexPath.row];
+    ACAccount *theAccount = [self.appDelegate.socialInstance.twitterAccounts objectAtIndex:indexPath.row];
     
     cell.screenName.text = theAccount.accountDescription;
     cell.fullName.text = theAccount.username;
     
-    if ([cell.screenName.text isEqualToString:_localInstance.twitterAccount.accountDescription]) {
+    if ([cell.screenName.text isEqualToString:self.appDelegate.socialInstance.twitterAccount.accountDescription]) {
         cell.currentlySelected.image = [UIImage imageNamed:@"Thumbs"];
     }
     
     return cell;
 }
 
-
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [_localInstance changeTwitterAccountToAccountAtIndex:indexPath.row];
+    [self.appDelegate.socialInstance changeTwitterAccountToAccountAtIndex:indexPath.row];
     
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     

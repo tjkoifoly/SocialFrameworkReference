@@ -1,14 +1,15 @@
 //
-//  TWBTweetCell.m
+//  SBTweetCell.m
 //  SocialFrameworkRef
 //
 //  Created by Stuart Breckenridge on 15/10/2013.
 //  Copyright (c) 2013 Stuart Breckenridge. All rights reserved.
 //
 
-#import "TWBTweetCell.h"
+#import "SBTweetCell.h"
+@import QuartzCore;
 
-@implementation TWBTweetCell
+@implementation SBTweetCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -24,6 +25,12 @@
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+
+- (void)drawRect:(CGRect)rect
+{
+    self.theAuthorProfileImage.layer.cornerRadius = self.theAuthorProfileImage.frame.size.width/2;
+    self.theAuthorProfileImage.layer.masksToBounds = YES;
 }
 
 @end

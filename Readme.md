@@ -11,19 +11,19 @@ Included in this app is the NSString+HTML.h class by Michael Waterfall; the GTMN
 Additionally, graphics used in this application are from Glyphish (www.glyphish.com). If you like them, buy them.
 
 ###General Design Notes
-#####TWBSocialHelper.h
-This is a singleton class used in this demo to manage various elements related to the user's social network accounts.
+#####SBSocial.h
+Import this class to use the convenience methods for `SLComposeViewController` creation. In this version of the app, an `SBSocial` instance is created in the App Delegate for the purposes of the `SLRequest` methods. This means accessing the instance using `self.appDelegate.socialInstance` - which isn't tidy.
 
 ###Twitter
 ######Important
-In the `TWBTwitterViewController`'s viewDidLoad method, a request is made to the `TWBSocialHelper` class for access to the user's Twitter accounts. You should allow access!
+In the `SBTwitterViewController`'s viewDidLoad method, a request is made to the `SBSocial` instance for access to the user's Twitter accounts. You should allow access!
 
 ######Notes
 > All `SLComposeViewController` methods check for an available Twitter account using the isAvailableForServiceType method. If no Twitter account(s) are available a UIAlertView is presented.
 
 > All `SLRequest` methods use Twitter API v1.1.
 
->Specifically for `SLRequest` methods, you can select which Twitter account to use via the Account selector. The account highlighted with the **Thumbs Up** is the currently active account.
+> For `SLRequest` methods, you can select which Twitter account to use via the Account selector. The account highlighted with the **Thumbs Up** is the currently active account.
 
 ![Account Selector](http://f.cl.ly/items/2X421I0b412g3H1u0g29/AccountSelector.png) 
 
@@ -31,7 +31,8 @@ In the `TWBTwitterViewController`'s viewDidLoad method, a request is made to the
 
 ####Twitter Methods
 #####Posting Text with SLComposeViewController
-This method uses `SLComposeViewController` to present Apple's stock tweet sheet for posting to Twitter.
+This method uses `SLComposeViewController` to present Apple's stock tweet sheet for posting to Twitter. Import `SBSocial.h` and call the
+`[SBSocial postTweetWithText:@"This is a test tweet with text only" andImage:nil fromViewController:self];` method.
 
 #####Posting Text and an Image with SLComposeViewController
 This method uses `SLComposeViewController` to present Apple's stock tweet sheet for posting to Twitter. An image from the application bundle is also attached to the tweet. 
@@ -50,7 +51,7 @@ This method downloads the current authenticated user's timeline (using the defau
 
 ###Facebook
 ######Important
-Facebook requires a separate read and write request to be made for each permission, in respect of methods using `SLRequest`. In `TWBFacebookViewController`'s `viewDidLoad` method a request is made for the read permission. Upon success of that method, a write request is made.
+Facebook requires a separate read and write request to be made for each permission, in respect of methods using `SLRequest`. In `SBFacebookViewController`'s `viewDidLoad` method a request is made for the read permission. Upon success of that method, a write request is made.
 
 ######Notes
 > For SLRequest methods a Facebook App Identifier is required. This needs to be setup at https://developers.facebook.com. Additionally, the bundle ID of the app must match the bundle ID on the Facebook website.

@@ -1,18 +1,24 @@
 //
-//  TWBAppDelegate.m
+//  SBAppDelegate.m
 //  SocialFrameworkRef
 //
 //  Created by Stuart Breckenridge on 10/10/2013.
 //  Copyright (c) 2013 Stuart Breckenridge. All rights reserved.
 //
 
-#import "TWBAppDelegate.h"
+#import "SBAppDelegate.h"
 
-@implementation TWBAppDelegate
+@implementation SBAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    
+    // Create an instance of SBSocial.
+    if (self.socialInstance == nil) {
+        self.socialInstance = [SBSocial new];
+    }
+    
     return YES;
 }
 							

@@ -1,5 +1,5 @@
 //
-//  TWBTwitterAccountsViewController.h
+//  SBTwitterAccountsViewController.h
 //  SocialFrameworkRef
 //
 //  Created by Stuart Breckenridge on 13/10/2013.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TWBTwitterAccountsViewController : UITableViewController
+@interface SBTwitterAccountsViewController : UITableViewController
 
 @end

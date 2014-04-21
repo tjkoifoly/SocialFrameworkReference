@@ -1,5 +1,5 @@
 //
-//  TWBFriendsCell.h
+//  SBFriendsCell.h
 //  SocialFrameworkRef
 //
 //  Created by Stuart Breckenridge on 14/10/2013.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TWBFriendsCell : UITableViewCell
+@interface SBFriendsCell : UITableViewCell
 
 
 @property (nonatomic,weak) IBOutlet UIImageView *profileImage;

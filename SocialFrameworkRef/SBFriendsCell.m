@@ -1,14 +1,14 @@
 //
-//  TWBFriendsCell.m
+//  SBFriendsCell.m
 //  SocialFrameworkRef
 //
 //  Created by Stuart Breckenridge on 14/10/2013.
 //  Copyright (c) 2013 Stuart Breckenridge. All rights reserved.
 //
 
-#import "TWBFriendsCell.h"
+#import "SBFriendsCell.h"
 
-@implementation TWBFriendsCell
+@implementation SBFriendsCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {

@@ -1,5 +1,5 @@
 //
-//  TWBTwitterViewController.h
+//  SBTwitterViewController.h
 //  SocialFrameworkRef
 //
 //  Created by Stuart Breckenridge on 10/10/2013.
@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-@import Social;
+#import "SBSocial.h"
 
-@interface TWBTwitterViewController : UIViewController
+@interface SBTwitterViewController : UIViewController <SBSocialNotifications>
 
 @end
